@@ -4,19 +4,16 @@ class Game
   CHOICES = {'p' => 'Paper', 'r' => 'Rock', 's' => 'Scissors'}
 
   attr_reader :player, :computer
-  attr_writer :player_name
-
+  
   def initialize
     puts "Please type in your name"
-    player_name = gets.chomp
-    @player = Human.new (player_name)
-    @computer = Computer.new ("C3PO")
+    @player = Human.new(gets.chomp)
+    @computer = Computer.new("C3PO")
   end
 
   def play
     player.pick_hand
     computer.pick_hand
-   
     puts player
     puts computer
     compare_hands
@@ -35,6 +32,7 @@ class Game
   end
 end
 
+
 class Hand
   include Comparable
 
@@ -45,11 +43,11 @@ class Hand
   end
 
   def <=> (another_hand)
-    if @value == another_hand.value
+    if value == another_hand.value
       0
-    elsif (@value == 'r' && another_hand.value == 's') ||
-        (@value == 'p' && another_hand.value == 'r' )||
-        (@value == 's' && another_hand.value == 'p')
+    elsif (value == 'r' && another_hand.value == 's') ||
+        (value == 'p' && another_hand.value == 'r' )||
+        (value == 's' && another_hand.value == 'p')
       1
     else
       -1
@@ -68,6 +66,7 @@ class Hand
   end
 end
 
+
 class Player
 
   attr_accessor :hand
@@ -78,7 +77,7 @@ class Player
   end
 
   def to_s
-    "#{name} used #{Game::CHOICES[self.hand.value]}"
+    "#{name} used #{Game::CHOICES[hand.value]}"
   end
 end
 
@@ -103,8 +102,9 @@ puts "-------------------------------"
 puts "Welcome to Paper, Rock Scissors"
 puts "-------------------------------"
 puts
+game = Game.new
 begin
-  game = Game.new.play
+  game.play
   puts
   puts "Do you want to play again? (y/n)"
   play_again = gets.chomp.downcase
